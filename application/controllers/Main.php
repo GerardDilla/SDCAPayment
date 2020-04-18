@@ -14,6 +14,21 @@ class Main extends CI_Controller {
 		//Defines log date
 		$this->logdate = date("Y/m/d");
 		$this->load->model('Global_Model/Global_Student_Model');
+		$this->load->model('Payment_Model/Fees_Model');
+
+		//set date
+        $datestring = "%Y-%m-%d %h:%i";
+        $date_only = "%Y-%m-%d";
+        $time = time();
+        $this->date_time = mdate($datestring, $time);
+        $this->date = mdate($date_only, $time);
+
+        //set logs
+        $this->array_logs = array(
+          'user_id' => $this->admin_data['userid'], 
+          'module' => 'Scheduling',
+          'transaction_date' => $this->date_time,
+        );
 
 	}
 	public function index()
@@ -53,6 +68,23 @@ class Main extends CI_Controller {
 		}
 
 		$this->load->view('Form');
+
+
+	}
+
+	private function insert_reservation($array_data)
+	{
+		$array_insert = array(
+			'Reference_No' => $array_data['reference_no'],
+			'Semester' => $array_data['semester'],
+			'SchoolYear' => $array_data['school_year'],
+			'Amount' => $array_data['amount'],
+			'Transaction_Item' => 'RESERVATION',
+			'Payment_Type' => 'CARD',
+			'valid' => 1,
+		);
+
+		
 
 
 	}
