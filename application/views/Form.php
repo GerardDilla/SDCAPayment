@@ -163,6 +163,18 @@
 												<div class="col-sm-12">
 													<div class="input-group">
 														<span class="input-group-addon">
+															<i class="material-icons">local_library</i>
+														</span>
+														<div class="form-group label-floating">
+														<label class="control-label">Program / Strand</label>
+														<input name="program" type="text" class="form-control">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-sm-12">
+													<div class="input-group">
+														<span class="input-group-addon">
 															<i class="material-icons">school</i>
 														</span>
 														<div class="form-group label-floating">
