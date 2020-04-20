@@ -15,18 +15,17 @@ class Main extends CI_Controller {
 		$this->logdate = date("Y/m/d");
 		$this->load->model('Global_Model/Global_Student_Model');
 		$this->load->model('Payment_Model/Fees_Model');
+		$this->load->model('Payment_Model/Student_Model');
 
-		//set date
+		#set date
         $datestring = "%Y-%m-%d %h:%i";
         $date_only = "%Y-%m-%d";
         $time = time();
         $this->date_time = mdate($datestring, $time);
         $this->date = mdate($date_only, $time);
 
-        //set logs
+        #set logs for wirecard transaction
         $this->array_logs = array(
-          'user_id' => $this->admin_data['userid'], 
-          'module' => 'Scheduling',
           'transaction_date' => $this->date_time,
         );
 
@@ -34,11 +33,16 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		#check input data
-		if ($this->input->post('reference_no') && is_numeric($this->input->post('reference_no')) && $this->input->post('student_type')) 
+		if ($this->input->post('reference_no') && is_numeric($this->input->post('reference_no')) && $this->input->post('student_type') && $this->input->post('first_name') && $this->input->post('last_name')) 
 		{
 			# code...
 			$reference_no = $this->input->post('reference_no');
 			$student_type = $this->input->post('student_type');
+			$array_input = array(
+				'reference_no' => $this->input->post('reference_no'),
+				'first_name' => $this->input->post('first_name'),
+				'lastname' => $this->input->post('lastname') 
+			);
 		}
 		else
 		{
@@ -52,12 +56,12 @@ class Main extends CI_Controller {
 		if ($student_type === "highered") 
 		{
 			# code...
-			$student_info = $this->Global_Student_Model->get_highered_student_info_by_reference_no($reference_no);
+			$student_info = $this->Student_Model->get_highered_student_info($array_input);
 		}
 		elseif ($student_type === "basiced") 
 		{
 			# code...
-			$student_info = $this->Global_Student_Model->get_basiced_student_info_by_reference_no($reference_no);
+			$student_info = $this->Student_Model->get_basiced_student_info($array_input);
 		}
 		
 
@@ -72,7 +76,7 @@ class Main extends CI_Controller {
 
 	}
 
-	private function insert_reservation($array_data)
+	private function insert_hed_reservation($array_data)
 	{
 		$array_insert = array(
 			'Reference_No' => $array_data['reference_no'],
@@ -81,12 +85,12 @@ class Main extends CI_Controller {
 			'Amount' => $array_data['amount'],
 			'Transaction_Item' => 'RESERVATION',
 			'Payment_Type' => 'CARD',
+			'Append_Date' => $this->date_time,
 			'valid' => 1,
 		);
 
+		$this->Fees_Model->insert_hed_reservation_payment($array_insert);
 		
-
-
 	}
 
 	
