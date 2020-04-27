@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url(); ?>assets/img/favicon.ico">
 
-	<title>Material Bootstrap Wizard by Creative Tim</title>
+	<title>St. Dominic College of Asia Online Payment</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -16,6 +16,7 @@
 	<!--     Fonts and icons     -->
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+	
 
 	<!-- CSS Files -->
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -26,23 +27,33 @@
 </head>
 
 <body>
-	<div class="image-container set-full-height" style="background-image: url('<?php echo base_url(); ?>assets/img/webbanner.jpg')">
+	<div style="background-image: url('<?php echo base_url(); ?>assets/img/webbanner.jpg');
+	height: 100%;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+    position: fixed;
+    width: 100%;
+	">
+	</div>
+	<div class="set-full-height" >
 	    <!--   Creative Tim Branding   -->
 	    <a href="http://creative-tim.com">
 	         <div class="logo-container">
 	            <div class="logo">
-	                <img src="<?php echo base_url(); ?>assets/img/Logo_white.png">
+	                <img src="<?php echo base_url(); ?>assets/img/logo-header.png">
 	            </div>
 	        </div>
 	    </a>
 
 	    <!--   Big container   -->
-	    <div class="container">
+	    <div class="container-fluid">
 	        <div class="row">
-		        <div class="col-sm-8 col-sm-offset-2">
+		        <div class="col-sm-5 col-sm-offset-1">
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
-		                <div class="card wizard-card" data-color="green" id="wizardProfile">
+		                <div class="card wizard-card" data-color="green" id="wizardProfile" style="margin-top:15%">
 		                    <form action="" method="">
 		                <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
 
@@ -247,7 +258,7 @@
 		                        <div class="wizard-footer">
 		                            <div class="pull-right">
 		                                <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Next' />
-		                                <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Proceed to Payment' />
+		                                <input type='submit' class='btn btn-finish btn-fill btn-success btn-wd paymentsubmit' name='finish' value='Proceed to Payment' />
 		                            </div>
 
 		                            <div class="pull-left">
@@ -280,7 +291,40 @@
 
     <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
-
+ 
 	<script src="<?php echo base_url(); ?>assets/js/customscript.js"></script>
 
+	<!-- Wirecard -->
+	<script type=text/javascript src="https://wpp-test.wirecard.com/loader/paymentPage.js"></script>
+
 </html>
+
+<script type='text/javascript'>
+
+	var baseurl = '<?php echo base_url(); ?>';
+	
+    $(document).ready(function(){
+
+        $('.paymentsubmit').click(function(e){
+        	var $valid = $('.wizard-card form').valid();
+        	if(!$valid) {
+        		$validator.focusInvalid();
+        		return false;
+        	}else{
+				e.preventDefault();
+				WPP.embeddedPayUrl(
+					<?php
+					echo '"' . $_SESSION['payment-redirect-url'] . '"';
+					?>
+				);
+			}
+			/*
+            WPP.embeddedPayUrl(
+                <?php
+                echo '"' . $_SESSION['payment-redirect-url'] . '"';
+                ?>
+			);
+			*/
+        });
+    });
+</script>

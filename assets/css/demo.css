@@ -658,5 +658,5 @@ footer .pull-center {
 .logo-container .logo {
     border-radius: 0% !important;
     border: 0px solid #333333 !important;
-    width: 200px !important;
+    width: 100% !important;
 }
