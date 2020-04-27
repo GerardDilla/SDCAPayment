@@ -76,6 +76,7 @@ class Main extends CI_Controller {
 
 	}
 
+	#functions to distribute later
 	private function insert_hed_reservation($array_data)
 	{
 		$array_insert = array(
@@ -91,6 +92,30 @@ class Main extends CI_Controller {
 
 		$this->Fees_Model->insert_hed_reservation_payment($array_insert);
 		
+	}
+
+	private function insert_validated_info_log($reference_no)
+	{
+		$this->array_logs['reference_number'] = $reference_no;
+		$this->array_logs['process'] = "Validated";
+		$this->array_logs['process_status'] = 1;
+		$this->Global_Logs_Model->insert_wirecard_logs($this->array_logs);
+	}
+
+	private function insert_transaction_success_log($reference_no)
+	{
+		$this->array_logs['reference_number'] = $reference_no;
+		$this->array_logs['process'] = "Payment Transaction";
+		$this->array_logs['process_status'] = 1;
+		$this->Global_Logs_Model->insert_wirecard_logs($this->array_logs);
+	}
+
+	private function insert_transaction_fail_log($reference_no)
+	{
+		$this->array_logs['reference_number'] = $reference_no;
+		$this->array_logs['process'] = "Payment Transaction";
+		$this->array_logs['process_status'] = 0;
+		$this->Global_Logs_Model->insert_wirecard_logs($this->array_logs);
 	}
 
 	
