@@ -82,7 +82,7 @@
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Student First Name <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
+			                                          <input id="firstName" name="firstname" type="text" class="form-control">
 			                                        </div>
 												</div>
 
@@ -102,7 +102,7 @@
 													</span>
 													<div class="form-group label-floating">
 													  <label class="control-label">Student Last Name <small>(required)</small></label>
-													  <input name="lastname" type="text" class="form-control">
+													  <input id="lastName" name="lastname" type="text" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -114,7 +114,7 @@
 														</span>
 														<div class="form-group label-floating">
 															<label class="control-label">Reference Number <small>(required)</small></label>
-															<input name="referencenumber" type="text" class="form-control">
+															<input id="referenceNumber" name="referencenumber" type="text" class="form-control">
 														</div>
 													</div>
 												</div>
@@ -139,7 +139,7 @@
 												<h4 style="text-align:center; color:#008000">testewrtewrwerew</h4>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">
+		                                                <input type="checkbox" class="uniqueCheckbox studentType" name="educationtype[]" value="basiced">
 		                                                <div class="icon">
 		                                                    <i class="fa fa-pencil"></i>
 		                                                </div>
@@ -148,7 +148,7 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Senior Highschool">
+		                                                <input type="checkbox" class="uniqueCheckbox studentType" name="educationtype[]" value="basiced">
 		                                                <div class="icon">
 		                                                    <i class="fa fa-users"></i>
 		                                                </div>
@@ -157,7 +157,7 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Higher Education">
+		                                                <input type="checkbox" class="uniqueCheckbox studentType" name="educationtype[]" value="highered">
 		                                                <div class="icon">
 		                                                    <i class="fa fa-laptop"></i>
 		                                                </div>
@@ -280,6 +280,8 @@
 	    </div>
 	</div>
 
+	<input type="hidden" id="addressUrl" value="<?php print site_url().'/main'; ?>" />
+
 </body>
 	<!--   Core JS Files   -->
     <script src="<?php echo base_url(); ?>assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
@@ -296,6 +298,9 @@
 
 	<!-- Wirecard -->
 	<script type=text/javascript src="https://wpp-test.wirecard.com/loader/paymentPage.js"></script>
+	
+	<!-- Custom -->
+	<script src="<?php echo base_url(); ?>js/online_payment.js" type="text/javascript"></script>
 
 </html>
 
@@ -312,11 +317,21 @@
         		return false;
         	}else{
 				e.preventDefault();
-				WPP.embeddedPayUrl(
-					<?php
-					echo '"' . $_SESSION['payment-redirect-url'] . '"';
-					?>
-				);
+				studentChecker = validateStudent();
+				if (studentChecker == 1) 
+				{
+					
+					WPP.embeddedPayUrl(
+						<?php
+						echo '"' . $_SESSION['payment-redirect-url'] . '"';
+						?>
+					);
+				}
+				else
+				{
+					return false;
+				}
+				
 			}
 			/*
             WPP.embeddedPayUrl(
@@ -327,4 +342,8 @@
 			*/
         });
     });
+
+	
 </script>
+
+

@@ -33,22 +33,36 @@ class Main extends CI_Controller {
 	}
 	public function index()
 	{
+		//$this->payreg();
+		$this->load->view('Form');
+
+	}
+
+	#validate details before proceeding to payment
+	public function validate_student_info()
+	{
 		#check input data
-		if ($this->input->post('reference_no') && is_numeric($this->input->post('reference_no')) && $this->input->post('student_type') && $this->input->post('first_name') && $this->input->post('last_name')) 
+		if ($this->input->get('reference_no') && is_numeric($this->input->get('reference_no')) && $this->input->get('student_type') && $this->input->get('first_name') && $this->input->get('last_name')) 
 		{
 			# code...
-			$reference_no = $this->input->post('reference_no');
-			$student_type = $this->input->post('student_type');
+			$reference_no = $this->input->get('reference_no');
+			$student_type = $this->input->get('student_type');
 			$array_input = array(
-				'reference_no' => $this->input->post('reference_no'),
-				'first_name' => $this->input->post('first_name'),
-				'lastname' => $this->input->post('lastname') 
+				'reference_no' => $this->input->get('reference_no'),
+				'first_name' => $this->input->get('first_name'),
+				'last_name' => $this->input->get('last_name') 
 			);
+
+			
 		}
 		else
 		{
 			//insert message using session
-			redirect('index.php');
+			//redirect('index.php');
+			$output["checker"] = 0;
+			$output["message"] = "Wrong Format of reference Number";
+			echo json_encode($output);
+			return;
 		}
 
 
@@ -66,17 +80,23 @@ class Main extends CI_Controller {
 		}
 		
 
-		if ($student_info === NULL) 
+		if ($student_info == NULL) 
 		{
 			# code...
-			redirect('index.php');
+			//redirect('index.php');
+			$output["checker"] = 0;
+			$output["message"] = "Wrong info";
+			echo json_encode($output);
+			return;
+			
 		}
 
-		
 		$this->payreg();
-		$this->load->view('Form');
 
-
+		$output["checker"] = 1;
+		$output["message"] = "";
+		echo json_encode($output);
+		return;
 	}
 
 	#functions to distribute later
@@ -127,8 +147,8 @@ class Main extends CI_Controller {
 		$currency = 'USD';
 		$amount = '1000';
 		$paymentMethod = 'creditcard';
-		$firstname = '';
-		$lastname = '';
+		$firstname = 'sample';
+		$lastname = 'sample';
 		$paymentdetails = '{
 			"payment": {
 			  "merchant-account-id": {
