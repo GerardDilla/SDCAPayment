@@ -54,7 +54,7 @@ width: 100%;
 												</span>
 												<div class="form-group label-floating">
 													<label class="control-label">Student First Name <small>(required)</small></label>
-													<input name="firstname" id="firstname-input" type="text" class="form-control">
+													<input name="firstname" type="text" class="form-control">
 												</div>
 											</div>
 
@@ -74,7 +74,7 @@ width: 100%;
 												</span>
 												<div class="form-group label-floating">
 													<label class="control-label">Student Last Name <small>(required)</small></label>
-													<input name="lastname" id="lastname-input" type="text" class="form-control">
+													<input name="lastname" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -86,7 +86,7 @@ width: 100%;
 													</span>
 													<div class="form-group label-floating">
 														<label class="control-label">Reference Number <small>(required)</small></label>
-														<input name="referencenumber" id="reference-input" type="text" class="form-control">
+														<input name="referencenumber" type="text" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -221,16 +221,6 @@ width: 100%;
 												<div class="form-group label-floating">
 												<label class="control-label">Email <small>(required)</small></label>
 												<input name="email" type="email" class="form-control">
-												</div>
-											</div>
-											<hr>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="material-icons">credit_card</i>
-												</span>
-												<div class="form-group label-floating">
-												<label class="control-label">Amount to pay <small>(required)</small></label>
-												<input name="amount" id="amount-input" type="number" class="form-control">
 												</div>
 											</div>
 										</div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Main extends MY_Controller {
 
 	function __construct() 
 	{
@@ -13,25 +13,57 @@ class Main extends CI_Controller {
 		//echo date("Y-m-d H:i:s");
 		//Defines log date
 		$this->logdate = date("Y/m/d");
-		$this->load->library('wirecard');
+		
 
 	}
 	public function index()
 	{
 
 		
-		$this->payreg();
-		$this->load->view('Form');
+		$this->render('Form');
 
 
 	}
 	public function payreg(){
 		
+		$returndata = array(
+			'Error' => 0,
+			'Message' => '',
+			'Output' => '',
+		);
+
+		$firstname = $this->input->get('firstname');
+		$lastname = $this->input->get('lastname');
+		$amount = $this->input->get('amount');
+		$referencenumber = $this->input->get('referencenumber');
+
+		if($referencenumber == ''){
+			$returndata['Error'] = 1;
+			$returndata['Message'] = 'Please input Reference Number';
+			echo json_encode($returndata);
+			return;
+		}
+		if($firstname == ''){
+			$returndata['Error'] = 1;
+			$returndata['Message'] = 'Please input First Name';
+			echo json_encode($returndata);
+			return;
+		}
+		if($lastname == ''){
+			$returndata['Error'] = 1;
+			$returndata['Message'] = 'Please input Last Name';
+			echo json_encode($returndata);
+			return;
+		}
+		if($amount == ''){
+			$returndata['Error'] = 1;
+			$returndata['Message'] = 'Please input Amount to pay';
+			echo json_encode($returndata);
+			return;
+		}
+
 		$currency = 'USD';
-		$amount = '1000';
 		$paymentMethod = 'creditcard';
-		$firstname = '';
-		$lastname = '';
 		$paymentdetails = '{
 			"payment": {
 			  "merchant-account-id": {
@@ -65,9 +97,9 @@ class Main extends CI_Controller {
 				  }
 				]
 			  },
-			  "success-redirect-url": "SDCAPayment/index.php/Student/PaymentStatusMessage/success",
-			  "fail-redirect-url": "SDCAPayment/index.php/Student/PaymentStatusMessage/fail",
-			  "cancel-redirect-url": "SDCAPayment/index.php/Student/PaymentStatusMessage/cancel"
+			  "success-redirect-url": "SDCAPayment/index.php/Main/success/'.$referencenumber.'",
+			  "fail-redirect-url": "SDCAPayment/index.php/Main/fail/'.$referencenumber.'",
+			  "cancel-redirect-url": "SDCAPayment/index.php/Main/cancel"
 			},
 			"options": {
 			  "frame-ancestor": ""
@@ -77,7 +109,33 @@ class Main extends CI_Controller {
 		$payload['options']['frame-ancestor'] = getBaseUrl();
 		$this->wirecard->retrievePaymentRedirectUrl($payload, $paymentMethod);
 
+		$returndata['Output'] = $_SESSION['payment-redirect-url'];
+		echo json_encode($returndata);
+
 		//redirect(base_url().'src/register/embedded?method=creditcard');
 		
+	}
+	public function success($Reference_Number = ''){
+
+		echo $Reference_Number;
+		echo showResponseData('response-base64', true);
+
+	}
+	public function notif(){
+
+		echo file_get_contents('php://input');
+
+	}
+	public function fail($Reference_Number = ''){
+
+		echo $Reference_Number;
+		
+	}
+	private function showResponseData($attr, $hasToBeEncoded = false)
+	{
+		if ($hasToBeEncoded) {
+			return isset($_SESSION['response'][$attr]) ? base64_decode($_SESSION['response'][$attr]) : DEFAULT_RES_MSG;
+		}
+		return isset($_SESSION['response'][$attr]) ? $_SESSION['response'][$attr] : DEFAULT_RES_MSG;
 	}
 }

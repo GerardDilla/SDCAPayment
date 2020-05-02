@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://www.stdominiccollege.edu.ph/EnrollmentTracker';
-$config['base_url'] = '';
+$config['base_url'] = 'https://192.168.254.128/SDCAPayment/';
 
 /*
 |--------------------------------------------------------------------------

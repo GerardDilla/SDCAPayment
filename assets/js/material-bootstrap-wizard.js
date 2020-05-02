@@ -44,12 +44,6 @@ $(document).ready(function(){
            'educationtype[]': {
                 required: true
             },
-            schoolyear: {
-                required: true
-            },
-            semester: {
-                required: true
-            },
             yearlevel: {
                 required: true
             },
@@ -58,6 +52,10 @@ $(document).ready(function(){
             },
             email: {
                 required: true
+            },
+            amount: {
+                required: true,
+                number:true,
             }
         },
         messages: {
