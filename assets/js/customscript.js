@@ -6,7 +6,7 @@ $(document).ready(function(){
             return false;
         }else{
             e.preventDefault();
-            alert('success');
+            //alert('success');
             inputs = {
                 firstname:$('#firstname-input').val(),
                 lastname:$('#lastname-input').val(),
