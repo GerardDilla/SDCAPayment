@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://www.stdominiccollege.edu.ph/EnrollmentTracker';
-$config['base_url'] = '';
+$config['base_url'] = 'https://stdominiccollege.edu.ph/SDCAPayment';
+//$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
