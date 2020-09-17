@@ -13,6 +13,8 @@ $(document).ready(function(){
                 amount:$('#amount-input').val(),
                 referencenumber:$('#reference-input').val(),
             }
+            $('.wizard-card form').submit();
+            /*
             wirecardStatus = getWirecardSession(inputs);
             wirecardStatus.done(function(data){
 
@@ -27,6 +29,7 @@ $(document).ready(function(){
 
 
             });
+            */
         }
     });
 

@@ -13,6 +13,8 @@ class Main extends MY_Controller {
 		//echo date("Y-m-d H:i:s");
 		//Defines log date
 		$this->logdate = date("Y/m/d");
+		$this->load->library('ub');
+		$this->load->model('TransactionModel');
 		
 
 	}
@@ -24,7 +26,7 @@ class Main extends MY_Controller {
 
 
 	}
-	public function payreg(){
+	private function payreg(){
 		
 		$returndata = array(
 			'Error' => 0,
@@ -114,6 +116,71 @@ class Main extends MY_Controller {
 
 		//redirect(base_url().'src/register/embedded?method=creditcard');
 		
+	}
+	public function payreg_ub(){
+
+		
+		if(empty($this->input->post())){
+
+			redirect(base_url().'index.php/Main');
+			
+		}
+
+		$transaction_detail_id = $this->save_transaction_details();
+		if($transaction_detail_id == ''){
+			echo 'An Error Occurred';
+			return;
+		}
+		$status = $this->save_transaction($transaction_detail_id);
+		if($status == ''){
+			echo 'An Error Occurred';
+			return;
+		}
+
+		$this->render('PreRegister');
+		
+	}
+	public function save_transaction_details(){
+		
+		$paydata['access_key'] = '19523d6302043fbfb2eaef3f937611a9';
+		$paydata['profile_id'] = 'AC8571E2-3FDB-4488-8FF7-6707B6ABF93A';
+		$paydata['transaction_uuid'] = uniqid();
+		$paydata['signed_field_names'] = 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,auth_trans_ref_no,reference_number,amount,currency';
+		$paydata['unsigned_field_names'] = '';
+		$paydata['signed_date_time'] = gmdate("Y-m-d\TH:i:s\Z");
+		$paydata['locale'] = 'en';
+		$paydata['transaction_type'] = 'sale';
+		$paydata['auth_trans_ref_no'] = '1223123';
+		$paydata['reference_number'] = '1223123';
+		$paydata['amount'] = $this->input->post('amount');
+		$paydata['currency'] = 'PHP';
+		$paydata['decision_reason_code'] = '100';
+		$paydata['payer_authentication_reason_code'] = '100';
+		$signature = $this->ub->sign($paydata);
+		$paydata['signature'] = $signature;
+		$this->data['paymentform'] = $paydata;
+		return $this->TransactionModel->SaveTransactionDetails($paydata);
+
+	}
+	public function save_transaction($transaction_detail_id){
+
+		$transdata['transaction_detail_id'] = $transaction_detail_id;
+		$transdata['First_Name'] = $this->input->post('firstname');
+		$transdata['Middle_Name'] = $this->input->post('middlename');
+		$transdata['Last_Name'] = $this->input->post('lastname');
+		$transdata['Reference_Number'] = $this->input->post('referencenumber');
+		$transdata['Student_Number'] = $this->input->post('studentnumber');
+		$transdata['Education'] = $this->input->post('educationtype')[0];
+		$transdata['Program_Strand'] = $this->input->post('program');
+		$transdata['YearLevel'] = $this->input->post('yearlevel');
+		$transdata['School_Year'] = $this->input->post('schoolyear');
+		$transdata['Semester'] = $this->input->post('semester');
+		$transdata['Contact_Number'] = $this->input->post('contactnumber');
+		$transdata['Email'] = $this->input->post('email');
+		$transdata['Amount'] = $this->input->post('amount');
+		
+		return $this->TransactionModel->SaveTransaction($transdata);
+
 	}
 	public function success($Reference_Number = ''){
 

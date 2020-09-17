@@ -26,8 +26,7 @@ width: 100%;
 				<!--      Wizard container        -->
 				<div class="wizard-container">
 					<div class="card wizard-card" data-color="green" id="wizardProfile" style="margin-top:15%">
-						<form action="" method="">
-					<!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+						<form action="<?php echo base_url(); ?>index.php/Main/payreg_ub" method="post">
 
 							<div class="wizard-header">
 								<h3 class="wizard-title">
@@ -108,7 +107,7 @@ width: 100%;
 									<h4 class="info-text"> Select the Student's Academic Background </h4>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1" id="choiceparent">
-											<h4 style="text-align:center; color:#008000">testewrtewrwerew</h4>
+											<h4 style="text-align:center; color:#008000"></h4>
 											<div class="col-sm-4">
 												<div class="choice" data-toggle="wizard-checkbox">
 													<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">
@@ -225,12 +224,16 @@ width: 100%;
 											</div>
 											<hr>
 											<div class="input-group">
+											
 												<span class="input-group-addon">
 													<i class="material-icons">credit_card</i>
 												</span>
 												<div class="form-group label-floating">
 												<label class="control-label">Amount to pay <small>(required)</small></label>
 												<input name="amount" id="amount-input" type="number" class="form-control">
+
+												
+												
 												</div>
 											</div>
 										</div>
