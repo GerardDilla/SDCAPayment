@@ -13,7 +13,7 @@ class Main extends MY_Controller {
 		//echo date("Y-m-d H:i:s");
 		//Defines log date
 		$this->logdate = date("Y/m/d");
-		$this->load->library('ub');
+		$this->load->library('Ub');
 		$this->load->model('TransactionModel');
 		
 
