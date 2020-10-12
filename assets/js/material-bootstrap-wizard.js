@@ -47,6 +47,12 @@ $(document).ready(function(){
             yearlevel: {
                 required: true
             },
+            schoolyear: {
+                required: true
+            },
+            schoolyear: {
+                required: true
+            },
             contactnumber: {
                 required: true
             },
@@ -62,7 +68,7 @@ $(document).ready(function(){
             'educationtype[]': "Please Select Education Type"
         },
         errorPlacement: function(error, element) {
-            $(element).parent('div').addClass('has-error');
+            //$(element).parent('div').addClass('has-error');
             //console.log(error);
             if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
 
@@ -71,7 +77,20 @@ $(document).ready(function(){
             }
             //console.log($(element).parent('div').parent('div').parent('div').attr('id'));
          },
-         success: function(){
+        highlight: function (element, errorClass) {
+            if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
+
+                parent = $('#choiceparent');
+                $(parent).find('h4').html(error[0]['textContent']);
+            }
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element, errorClass) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+         success: function(label){
+             console.log(label);
+            $(label).parent('div').removeClass('has-error');
             $('#choiceparent').find('h4').html('');
          }
 	});
