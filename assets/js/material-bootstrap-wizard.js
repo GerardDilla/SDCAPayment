@@ -44,7 +44,13 @@ $(document).ready(function(){
            'educationtype[]': {
                 required: true
             },
+            program: {
+                required: true
+            },
             yearlevel: {
+                required: true
+            },
+            semester: {
                 required: true
             },
             schoolyear: {
@@ -70,26 +76,28 @@ $(document).ready(function(){
         errorPlacement: function(error, element) {
             //$(element).parent('div').addClass('has-error');
             //console.log(error);
+            /*
             if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
 
                 parent = $('#choiceparent');
                 $(parent).find('h4').html(error[0]['textContent']);
-            }
+            }*/
             //console.log($(element).parent('div').parent('div').parent('div').attr('id'));
          },
         highlight: function (element, errorClass) {
+            console.log(element);
             if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
 
                 parent = $('#choiceparent');
-                $(parent).find('h4').html(error[0]['textContent']);
+                $(parent).find('h4').html('Choose the Academic Backround of the Student below');
             }
             $(element).closest('.form-group').addClass('has-error');
         },
         unhighlight: function (element, errorClass) {
             $(element).closest('.form-group').removeClass('has-error');
         },
-         success: function(label){
-             console.log(label);
+        success: function(label){
+            console.log(label);
             $(label).parent('div').removeClass('has-error');
             $('#choiceparent').find('h4').html('');
          }
