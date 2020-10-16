@@ -26,6 +26,15 @@ $(document).ready(function(){
     /*  Activate the tooltips      */
     $('[rel="tooltip"]').tooltip();
 
+    $('#acad_info').hide();
+
+    $('.acadchoice').click(function(){
+
+        //alert($(this).data('acad'));
+        InitAcadForm($(this).data('acad'));
+
+    });
+
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
 		  rules: {
@@ -36,10 +45,15 @@ $(document).ready(function(){
 		    lastname: {
 		      required: true,
 		      minlength: 2
-		    },
+            },
+            studentnumber: {
+                required: true,
+                minlength: 5,
+                number:true,
+            },
 		    referencenumber: {
-		      required: true,
-		      minlength: 3,
+              minlength: 5,
+              number:true,
             },
            'educationtype[]': {
                 required: true
@@ -60,7 +74,8 @@ $(document).ready(function(){
                 required: true
             },
             contactnumber: {
-                required: true
+                required: true,
+                number: true,
             },
             email: {
                 required: true
@@ -313,3 +328,49 @@ function debounce(func, wait, immediate) {
 		if (immediate && !timeout) func.apply(context, args);
 	};
 };
+
+function InitAcadForm(acad){
+
+    if($('#acad_info').is(":hidden")){
+
+        $('#acad_info').fadeIn();
+
+    }
+
+    if(acad == 'hed'){
+        
+        $('input[name="program"]').removeAttr("disabled");
+        $('input[name="program"]').parent().parent().fadeIn();
+
+        $('input[name="semester"]').removeAttr("disabled");
+        $('input[name="semester"]').parent().parent().fadeIn();
+
+    }else if(acad == 'bed'){
+
+        $('input[name="program"]').attr("disabled", "disabled");
+        $('input[name="program"]').parent().parent().hide();
+
+        $('input[name="semester"]').attr("disabled", "disabled"); 
+        $('input[name="semester"]').parent().parent().fadeOut();
+
+    }else if(acad == 'shs'){
+
+        $('input[name="program"]').removeAttr("disabled");
+        $('input[name="program"]').parent().parent().fadeIn();
+
+        $('input[name="semester"]').attr("disabled", "disabled"); 
+        $('input[name="semester"]').parent().parent().fadeOut();
+
+    }
+}
+
+function ProgramAPI(){
+
+}
+function StrandAPI(){
+
+}
+function YearlevelAPI(acad){
+
+}
+

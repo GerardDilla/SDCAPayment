@@ -78,28 +78,31 @@ width: 100%;
 											</div>
 										</div>
 										<div class="col-sm-10 col-sm-offset-1">
+
 											<div class="col-sm-6">
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">person</i>
 													</span>
 													<div class="form-group label-floating">
-														<label class="control-label">Reference Number <small>(required)</small></label>
-														<input name="referencenumber" id="reference-input" type="text" class="form-control">
-													</div>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">person</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Student Number</label>
+														<label class="control-label">Student Number <small>(required)</small></label>
 														<input name="studentnumber" type="text" class="form-control">
 													</div>
 												</div>
 											</div>
+
+											<div class="col-sm-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">person</i>
+													</span>
+													<div class="form-group label-floating">
+														<label class="control-label">Reference Number <small>(optional)</small></label>
+														<input name="referencenumber" id="reference-input" type="text" class="form-control">
+													</div>
+												</div>
+											</div>
+
 										</div>
 									</div>
 								</div>
@@ -108,39 +111,42 @@ width: 100%;
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1" id="choiceparent">
 											<b><h4 style="text-align:center; color:#008000; font-weight: bold;"></h4></b>
-											<div class="col-sm-4">
-												<div class="choice" data-toggle="wizard-checkbox">
-													<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">
-													<div class="icon">
-														<i class="fa fa-pencil"></i>
+											
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="bed">
+														<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">
+														<div class="icon">
+															<i class="fa fa-pencil"></i>
+														</div>
+														<h6>Basic Education</h6>
 													</div>
-													<h6>Basic Education</h6>
 												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="choice" data-toggle="wizard-checkbox">
-													<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Senior Highschool">
-													<div class="icon">
-														<i class="fa fa-users"></i>
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="shs">
+														<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Senior Highschool">
+														<div class="icon " >
+															<i class="fa fa-users"></i>
+														</div>
+														<h6>Senior Highscool</h6>
 													</div>
-													<h6>Senior Highscool</h6>
 												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="choice" data-toggle="wizard-checkbox">
-													<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Higher Education">
-													<div class="icon">
-														<i class="fa fa-laptop"></i>
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="hed">
+														<input type="checkbox" class="uniqueCheckbox"  name="educationtype[]" value="Higher Education">
+														<div class="icon " >
+															<i class="fa fa-laptop"></i>
+														</div>
+														<h6>Higher Education</h6>
 													</div>
-													<h6>Higher Education</h6>
 												</div>
-											</div>
+											
 										</div>
 									</div>
 									<hr>
-									<h4 class="info-text"> Input the Student's Academic Info </h4>
+									
 									<div class="row">
-										<div class="col-sm-10 col-sm-offset-1">
+										<div class="col-sm-10 col-sm-offset-1" id="acad_info">
+											<h4 class="info-text"> Input the Student's Academic Info </h4>
 
 											<div class="col-sm-12">
 												<div class="input-group">
