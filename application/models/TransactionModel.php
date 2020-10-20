@@ -21,30 +21,52 @@ class TransactionModel extends CI_Model{
 	public function GetProgram(){
 
 		$this->db->select('Program_Code');
-		$this->db->get('Programs');
-		return $this->result();
+		$this->db->order_by('Program_Code','ASC');
+		$query = $this->db->get('Programs');
+		return $query->result_array();
 
 	}
 	public function GetStrand(){
 
 		$this->db->select('Strand_Title');
-		$this->db->get('Seniorhigh_Strand');
-		return $this->result();
+		$query = $this->db->get('Seniorhigh_Strand');
+		return $query->result();
 
 	}
 	public function GetYearLevel_shs(){
 
 		$this->db->where('Grade_ID >','14');
-		$this->db->get('basiced_level');
-		return $this->result();
+		$query = $this->db->get('basiced_level');
+		return $query->result();
 		
 	}
 	public function GetYearLevel_basic(){
 
 		$this->db->where('Grade_ID <','15');
-		$this->db->get('basiced_level');
-		return $this->result();
+		$query = $this->db->get('basiced_level');
+		return $query->result();
 		
+	}
+	public function transaction_uuid_check($draft){
+
+		$this->db->where('transaction_uuid',$draft);
+		$query = $this->db->get('ub_transactions_details');
+		return $query->num_rows();
+
+	}
+	public function auth_trans_ref_no_check($draft){
+
+		$this->db->where('auth_trans_ref_no',$draft);
+		$query = $this->db->get('ub_transactions_details');
+		return $query->num_rows();
+
+	}
+	public function uniqueReferenceNumber_check($draft){
+
+		$this->db->where('reference_number',$draft);
+		$query = $this->db->get('ub_transactions_details');
+		return $query->num_rows();
+
 	}
 
 

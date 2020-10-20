@@ -35,6 +35,13 @@ $(document).ready(function(){
 
     });
 
+    /*
+    $('#program_drop').change(function(){
+        $('#program_drop').parent().removeClass('is-empty');
+        alert('test');
+    });
+    */
+
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
 		  rules: {
@@ -339,27 +346,34 @@ function InitAcadForm(acad){
 
     if(acad == 'hed'){
         
-        $('input[name="program"]').removeAttr("disabled");
-        $('input[name="program"]').parent().parent().fadeIn();
+        $('#program_drop').removeAttr("disabled");
+        $('#program_drop').parent().parent().fadeIn();
 
-        $('input[name="semester"]').removeAttr("disabled");
-        $('input[name="semester"]').parent().parent().fadeIn();
+        $('#semester_drop').removeAttr("disabled");
+        $('#semester_drop').parent().parent().fadeIn();
+
+        ProgramAPI();
+        Yearlevel(acad);
 
     }else if(acad == 'bed'){
 
-        $('input[name="program"]').attr("disabled", "disabled");
-        $('input[name="program"]').parent().parent().hide();
+        $('#program_drop').attr("disabled", "disabled");
+        $('#program_drop').parent().parent().hide();
 
-        $('input[name="semester"]').attr("disabled", "disabled"); 
-        $('input[name="semester"]').parent().parent().fadeOut();
+        $('#semester_drop').attr("disabled", "disabled"); 
+        $('#semester_drop').parent().parent().fadeOut();
+        Yearlevel(acad);
 
     }else if(acad == 'shs'){
 
-        $('input[name="program"]').removeAttr("disabled");
-        $('input[name="program"]').parent().parent().fadeIn();
+        $('#program_drop').removeAttr("disabled");
+        $('#program_drop').parent().parent().fadeIn();
 
-        $('input[name="semester"]').attr("disabled", "disabled"); 
-        $('input[name="semester"]').parent().parent().fadeOut();
+        $('#semester_drop').attr("disabled", "disabled"); 
+        $('#semester_drop').parent().parent().fadeOut();
+
+        StrandAPI();
+        Yearlevel(acad);
 
     }
 }
@@ -367,12 +381,24 @@ function InitAcadForm(acad){
 function ProgramAPI(){
 
     $.ajax({
-        url: baseurl()+"index.php/Main/getPrograms",
-        type: 'POST',
+        url: baseurl+"index.php/Main/getPrograms",
         success: function(response){
 
             data = JSON.parse(response);
-            console.log(data);
+
+            row = $('#program_drop');
+            row.html('');
+            row.parent().removeClass('is-empty');
+            row.append($("<option/>").text('Select Program').attr({disabled:"disabled",selected:"selected"}));
+
+
+            $.each(data, function(index, result) 
+            {
+                //Set custom attribute 'sched-code'
+                row = $('#program_drop');
+                row.append($("<option/>").text(result['Program_Code']).attr('value',result['Program_Code']));
+
+            });
 
         },
         fail: function(){
@@ -383,10 +409,66 @@ function ProgramAPI(){
     });
 
 }
+
 function StrandAPI(){
 
+    $.ajax({
+        url: baseurl+"index.php/Main/getStrand",
+        success: function(response){
+
+            data = JSON.parse(response);
+
+            row = $('#program_drop');
+            row.html('');
+            row.parent().removeClass('is-empty');
+            row.append($("<option/>").text('Select Strand').attr({disabled:"disabled",selected:"selected"}));
+
+
+            $.each(data, function(index, result) 
+            {
+                //Set custom attribute 'sched-code'
+                row.append($("<option/>").text(result['Strand_Title']).attr('value',result['Strand_Title']));
+
+            });
+
+        },
+        fail: function(){
+
+            alert('Error Connecting to Server, Try again.');
+
+        }
+    });
+
 }
-function YearlevelAPI(acad){
+function Yearlevel(acad){
+
+    if(acad == 'hed'){
+
+        choices = [1,2,3,4];
+
+    }else if(acad == 'shs'){
+
+        choices = [11,12];
+
+    }else{
+
+        choices = [1,2,3,4,5,6,7,8,9,10];
+
+    }
+
+    dropdown = $('#yearlevel_drop');
+    dropdown.html('');
+    dropdown.parent().removeClass('is-empty');
+    dropdown.append($("<option/>").text('Select Year Level').attr({disabled:"disabled",selected:"selected"}));
+
+    $.each(choices , function(index, val){ 
+
+        dropdown.append($("<option/>").text(val).attr('value',val));
+
+    });
+
+    
+
 
 }
 

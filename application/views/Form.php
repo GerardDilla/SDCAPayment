@@ -153,9 +153,11 @@ width: 100%;
 													<span class="input-group-addon">
 														<i class="material-icons">local_library</i>
 													</span>
-													<div class="form-group label-floating">
-													<label class="control-label">Program / Strand</label>
-													<input name="program" type="text" class="form-control">
+													<div class="form-group">
+														<label class="control-label">Program / Strand</label>
+														<select name="program" id="program_drop" class="form-control">
+
+														</select>
 													</div>
 												</div>
 											</div>
@@ -165,9 +167,11 @@ width: 100%;
 													<span class="input-group-addon">
 														<i class="material-icons">school</i>
 													</span>
-													<div class="form-group label-floating">
-													<label class="control-label">Year Level / Grade Level <small>(required)</small></label>
-													<input name="yearlevel" type="text" class="form-control">
+													<div class="form-group">
+														<label class="control-label">Year Level / Grade Level <small>(required)</small></label>
+														<select name="yearlevel" id="yearlevel_drop" class="form-control">
+
+														</select>
 													</div>
 												</div>
 											</div>
@@ -177,10 +181,10 @@ width: 100%;
 													<span class="input-group-addon">
 														<i class="material-icons">calendar_today</i>
 													</span>
-													<div class="form-group label-floating">
+													<div class="form-group">
 														<label class="control-label">School Year <small>(required)</small></label>
 														<select name="schoolyear" class="form-control">
-															<option disabled="" selected=""></option>
+															<option disabled="" selected="">Select School Year</option>
 															<option>2019-2020</option>
 															<option>2020-2021</option>
 														</select>
@@ -193,9 +197,14 @@ width: 100%;
 													<span class="input-group-addon">
 														<i class="material-icons">book</i>
 													</span>
-													<div class="form-group label-floating">
+													<div class="form-group">
 													<label class="control-label">Semester / Term <small>(required)</small></label>
-													<input name="semester" type="text" class="form-control">
+														<select name="semester" id="semester_drop" class="form-control">
+															<option disabled="" selected="">Select Semester</option>
+															<option>First</option>
+															<option>Second</option>
+															<option>Summer</option>
+														</select>
 													</div>
 												</div>
 											</div>
@@ -270,5 +279,6 @@ width: 100%;
 		</div>
 	</div>
 </div>
+
 
 

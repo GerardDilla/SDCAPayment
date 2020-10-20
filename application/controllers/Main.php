@@ -144,22 +144,34 @@ class Main extends MY_Controller {
 		
 		$paydata['access_key'] = '19523d6302043fbfb2eaef3f937611a9';
 		$paydata['profile_id'] = 'AC8571E2-3FDB-4488-8FF7-6707B6ABF93A';
-		$paydata['transaction_uuid'] = uniqid();
+		$paydata['transaction_uuid'] = $this->transaction_uuid();
 		$paydata['signed_field_names'] = 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,auth_trans_ref_no,reference_number,amount,currency';
 		$paydata['unsigned_field_names'] = '';
 		$paydata['signed_date_time'] = gmdate("Y-m-d\TH:i:s\Z");
 		$paydata['locale'] = 'en';
 		$paydata['transaction_type'] = 'sale';
-		$paydata['auth_trans_ref_no'] = '1223123';
-		$paydata['reference_number'] = '1223123';
+		$paydata['auth_trans_ref_no'] = $this->auth_trans_ref_no();
+		$paydata['reference_number'] = $this->uniqueReferenceNumber();
 		$paydata['amount'] = $this->input->post('amount');
 		$paydata['currency'] = 'PHP';
 		$paydata['decision_reason_code'] = '100';
 		$paydata['payer_authentication_reason_code'] = '100';
+		$paydata['merchant_defined_data23'] = $this->input->post('studentnumber');
+		$paydata['merchant_defined_data25'] = $this->input->post('yearlevel');
+
 		$signature = $this->ub->sign($paydata);
+
+		unset($paydata['merchant_defined_data23']);
+		unset($paydata['merchant_defined_data25']);
 		$paydata['signature'] = $signature;
+		$save_status = $this->TransactionModel->SaveTransactionDetails($paydata);
+		
+		$paydata['merchant_defined_data23'] = $this->input->post('studentnumber');
+		$paydata['merchant_defined_data25'] = $this->input->post('yearlevel');
 		$this->data['paymentform'] = $paydata;
-		return $this->TransactionModel->SaveTransactionDetails($paydata);
+
+		return $save_status;
+		
 
 	}
 	public function save_transaction($transaction_detail_id){
@@ -208,7 +220,65 @@ class Main extends MY_Controller {
 	public function getPrograms(){
 
 	
-		$this->TransactionModel->GetProgram();
+		$result = $this->TransactionModel->GetProgram();
+		echo json_encode($result);
+			
 
+	}
+	public function getStrand(){
+	
+		$result = $this->TransactionModel->GetStrand();
+		echo json_encode($result);
+
+	}
+	public function uniqueReferenceNumber(){
+
+		$draft = date_format(date_create($this->logdate),"Ymd").strtoupper(uniqid('SDCA', false));
+		$available = 0;
+		while($available != 1){
+
+			$result = $this->TransactionModel->uniqueReferenceNumber_check($draft);
+			if($result == 0){
+				$available = 1;
+			}else{
+				$draft = date_format(date_create($this->logdate),"Ymd").strtoupper(uniqid('SDCA', false));
+			}
+
+		}
+		return $draft;
+
+	}
+	public function transaction_uuid(){
+
+		$draft = uniqid();
+		$available = 0;
+		while($available != 1){
+
+			$result = $this->TransactionModel->transaction_uuid_check($draft);
+			if($result == 0){
+				$available = 1;
+			}else{
+				$draft = uniqid();
+			}
+
+		}
+		return $draft;
+
+	}
+	public function auth_trans_ref_no(){
+
+		return uniqid();
+		$available = 0;
+		while($available != 1){
+
+			$result = $this->TransactionModel->auth_trans_ref_no_check($draft);
+			if($result == 0){
+				$available = 1;
+			}else{
+				$draft = uniqid();
+			}
+
+		}
+		return $draft;
 	}
 }
