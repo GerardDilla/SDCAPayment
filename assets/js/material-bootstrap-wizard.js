@@ -366,6 +366,22 @@ function InitAcadForm(acad){
 
 function ProgramAPI(){
 
+    $.ajax({
+        url: baseurl()+"index.php/Main/getPrograms",
+        type: 'POST',
+        success: function(response){
+
+            data = JSON.parse(response);
+            console.log(data);
+
+        },
+        fail: function(){
+
+            alert('Error Connecting to Server, Try again.');
+
+        }
+    });
+
 }
 function StrandAPI(){
 

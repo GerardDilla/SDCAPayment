@@ -205,4 +205,10 @@ class Main extends MY_Controller {
 		}
 		return isset($_SESSION['response'][$attr]) ? $_SESSION['response'][$attr] : DEFAULT_RES_MSG;
 	}
+	public function getPrograms(){
+
+	
+		$this->TransactionModel->GetProgram();
+
+	}
 }
