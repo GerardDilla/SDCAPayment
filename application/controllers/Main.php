@@ -150,24 +150,28 @@ class Main extends MY_Controller {
 		$paydata['signed_date_time'] = gmdate("Y-m-d\TH:i:s\Z");
 		$paydata['locale'] = 'en';
 		$paydata['transaction_type'] = 'sale';
+
+		$reference_number = $this->uniqueReferenceNumber();
+		$paydata['auth_trans_ref_no'] = $reference_number;
+		$paydata['reference_number'] = $reference_number;
+
 		$paydata['auth_trans_ref_no'] = $this->auth_trans_ref_no();
-		$paydata['reference_number'] = $this->uniqueReferenceNumber();
 		$paydata['amount'] = $this->input->post('amount');
 		$paydata['currency'] = 'PHP';
 		$paydata['decision_reason_code'] = '100';
 		$paydata['payer_authentication_reason_code'] = '100';
 		$paydata['merchant_defined_data23'] = $this->input->post('studentnumber');
-		$paydata['merchant_defined_data25'] = $this->input->post('yearlevel');
+		$paydata['merchant_defined_data24'] = $this->input->post('yearlevel');
 
 		$signature = $this->ub->sign($paydata);
 
 		unset($paydata['merchant_defined_data23']);
-		unset($paydata['merchant_defined_data25']);
+		unset($paydata['merchant_defined_data24']);
 		$paydata['signature'] = $signature;
 		$save_status = $this->TransactionModel->SaveTransactionDetails($paydata);
 		
 		$paydata['merchant_defined_data23'] = $this->input->post('studentnumber');
-		$paydata['merchant_defined_data25'] = $this->input->post('yearlevel');
+		$paydata['merchant_defined_data24'] = $this->input->post('yearlevel');
 		$this->data['paymentform'] = $paydata;
 
 		return $save_status;

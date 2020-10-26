@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width" />
 
 	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url(); ?>assets/img/apple-icon.png" />
-	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/favicon.png" />
+	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/webicon.png" />
 
 	<!--     Fonts and icons     -->
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
