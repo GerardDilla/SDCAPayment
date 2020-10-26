@@ -155,7 +155,6 @@ class Main extends MY_Controller {
 		$paydata['auth_trans_ref_no'] = $reference_number;
 		$paydata['reference_number'] = $reference_number;
 
-		$paydata['auth_trans_ref_no'] = $this->auth_trans_ref_no();
 		$paydata['amount'] = $this->input->post('amount');
 		$paydata['currency'] = 'PHP';
 		$paydata['decision_reason_code'] = '100';
