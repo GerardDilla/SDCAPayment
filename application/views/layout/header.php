@@ -21,3 +21,5 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="<?php echo base_url(); ?>assets/css/demo.css" rel="stylesheet" />
+
+	

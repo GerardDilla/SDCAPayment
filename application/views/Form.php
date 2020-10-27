@@ -11,7 +11,7 @@ width: 100%;
 </div>
 <div class="set-full-height" >
 	<!--   Creative Tim Branding   -->
-	<a href="http://creative-tim.com">
+	<a>
 			<div class="logo-container">
 			<div class="logo">
 				<img src="<?php echo base_url(); ?>assets/img/logo-header.png">
@@ -265,6 +265,7 @@ width: 100%;
 									<input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
 								</div>
 								<div class="clearfix"></div>
+								<h5 style="text-align:center">Need help with something? Visit our <a href="<?php echo base_url(); ?>SDCAHelpdesk">Helpdesk</a></h5>
 							</div>
 						</form>
 					</div>

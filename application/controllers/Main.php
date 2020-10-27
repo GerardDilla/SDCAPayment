@@ -197,12 +197,6 @@ class Main extends MY_Controller {
 		return $this->TransactionModel->SaveTransaction($transdata);
 
 	}
-	public function success($Reference_Number = ''){
-
-		echo $Reference_Number;
-		echo showResponseData('response-base64', true);
-
-	}
 	public function notif(){
 
 		echo file_get_contents('php://input');
@@ -284,4 +278,20 @@ class Main extends MY_Controller {
 		}
 		return $draft;
 	}
+	public function Success(){
+
+		$this->render('Result/Accept');
+
+	}
+	public function Error(){
+
+		$this->render('Result/Accept');
+
+	}
+	public function Cancel(){
+
+		$this->render('Result/Accept');
+
+	}
+
 }

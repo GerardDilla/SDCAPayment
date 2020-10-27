@@ -35,6 +35,16 @@ $(document).ready(function(){
 
     });
 
+    if($('#inspect_option').data('inspect') == 'no'){
+
+        toggleInspect(0);
+
+    }else{
+
+        toggleInspect(1);
+
+    }
+
     /*
     $('#program_drop').change(function(){
         $('#program_drop').parent().removeClass('is-empty');
@@ -467,7 +477,36 @@ function Yearlevel(acad){
 
     });
 
+}
+function toggleInspect(config){
+
+    if(config == 0){
+
+        $(document).bind("contextmenu",function(e) {
+            e.preventDefault();
+        });
     
+        $(document).keydown(function(e){
+            if(e.which === 123){
+                return false;
+            }
+        });
+
+    }else{
+
+        $(document).bind("contextmenu",function(e) {
+            //e.preventDefault();
+            e.returnValue = true;
+        });
+    
+        $(document).keydown(function(e){
+            if(e.which === 123){
+                e.returnValue = true;
+                return true;
+            }
+        });
+
+    }
 
 
 }

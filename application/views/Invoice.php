@@ -11,7 +11,7 @@ width: 100%;
 </div>
 <div class="set-full-height" >
 	<!--   Creative Tim Branding   -->
-	<a href="http://creative-tim.com">
+	<a  >
 			<div class="logo-container">
 			<div class="logo">
 				<img src="<?php echo base_url(); ?>assets/img/logo-header.png">
