@@ -79,7 +79,7 @@ width: 100%;
 
 window.onload = function(){
 
-  //document.forms['payment_confirmation'].submit();
+  document.forms['payment_confirmation'].submit();
 
 }
 

@@ -291,13 +291,9 @@ class Main extends MY_Controller {
 	}
 	public function Success(){
 
-		if(){
-
+		if(!$this->session->userdata('refnum')){
+			redirect(base_url().'index.php/Main');
 		}
-		$this->session->set_userdata('refnum',$paydata['reference_number']);
-		$this->session->set_userdata('amount',$paydata['amount']);
-		$this->session->set_userdata('email',$paydata['Email']);
-		
 		$this->render('Result/Accept');
 
 	}
