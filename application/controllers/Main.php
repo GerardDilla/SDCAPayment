@@ -131,6 +131,7 @@ class Main extends MY_Controller {
 			echo 'An Error Occurred';
 			return;
 		}
+
 		$status = $this->save_transaction($transaction_detail_id);
 		if($status == ''){
 			echo 'An Error Occurred';
@@ -173,6 +174,9 @@ class Main extends MY_Controller {
 		$paydata['merchant_defined_data24'] = $this->input->post('yearlevel');
 		$this->data['paymentform'] = $paydata;
 
+		$this->session->set_userdata('refnum',$paydata['reference_number']);
+		$this->session->set_userdata('amount',$paydata['amount']);
+
 		return $save_status;
 		
 
@@ -193,7 +197,10 @@ class Main extends MY_Controller {
 		$transdata['Contact_Number'] = $this->input->post('contactnumber');
 		$transdata['Email'] = $this->input->post('email');
 		$transdata['Amount'] = $this->input->post('amount');
+
+		$this->session->set_userdata('email',$transdata['Email']);
 		
+
 		return $this->TransactionModel->SaveTransaction($transdata);
 
 	}
@@ -280,18 +287,26 @@ class Main extends MY_Controller {
 	}
 	public function Success(){
 
-		$this->render('Result/Accept');
+		if(){
 
-	}
-	public function Error(){
-
+		}
+		$this->session->set_userdata('refnum',$paydata['reference_number']);
+		$this->session->set_userdata('amount',$paydata['amount']);
+		$this->session->set_userdata('email',$paydata['Email']);
+		
 		$this->render('Result/Accept');
 
 	}
 	public function Cancel(){
 
-		$this->render('Result/Accept');
+		$this->render('Result/Decline');
 
 	}
+	public function Error(){
+
+		$this->render('Result/Error');
+
+	}
+
 
 }

@@ -44,7 +44,24 @@ width: 100%;
 								echo '<br>';
 							}
 						?>
+						
 						</form>
+						<table class="table" style="width:100%; font-size:100%">
+								<tr>
+									<td style="text-align:right; font-weight:400">Reference Number:</td>
+									<td style="text-align:left"><?php echo $this->session->userdata('refnum'); ?></td>
+									
+								</tr>
+								<tr>
+									<td style="text-align:right; font-weight:400">Email:</td>
+									<td style="text-align:left"><?php echo $this->session->userdata('email'); ?></td>
+									
+								</tr>
+								<tr>
+									<td style="text-align:right; font-weight:400">Amount:</td>
+									<td style="text-align:left">Php <?php echo $this->session->userdata('amount'); ?></td>
+								</tr>
+							</table>
 					</div>
 				</div> <!-- wizard container -->
 			</div>
@@ -62,7 +79,7 @@ width: 100%;
 
 window.onload = function(){
 
-  document.forms['payment_confirmation'].submit();
+  //document.forms['payment_confirmation'].submit();
 
 }
 

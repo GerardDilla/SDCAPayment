@@ -33,14 +33,11 @@ width: 100%;
 							<div>
 							
 								<div class="icon">
-									<i class="fa fa-check" 
+									<i class="fa fa-ban" 
 									
 										style="
 										font-size:900%; 
-										border:solid 10px;
-										border-color:#3cd070; 
 										color:#3cd070; 
-										border-radius:50%;
 										padding: 2%;
 										"
 									>
@@ -52,32 +49,16 @@ width: 100%;
 
 							<br><br>
 
-							<h3 class="wizard-title">THANK YOU!</h3>
-							<h4>Your payment will now be processed. Check your email for the e-receipt.</h4>
+							<h3 class="wizard-title">Payment Declined</h3>
+							<h5>Need help with something? Visit our <a href="<?php echo base_url(); ?>SDCAHelpdesk">Helpdesk</a></h5>
 							<br>
-							<table class="table" style="width:100%; font-size:100%">
-								<tr>
-									<td style="text-align:right; font-weight:400">Reference Number:</td>
-									<td style="text-align:left"><?php echo $this->session->userdata('refnum'); ?></td>
-									
-								</tr>
-								<tr>
-									<td style="text-align:right; font-weight:400">Email:</td>
-									<td style="text-align:left"><?php echo $this->session->userdata('email'); ?></td>
-									
-								</tr>
-								<tr>
-									<td style="text-align:right; font-weight:400">Amount:</td>
-									<td style="text-align:left">Php <?php echo $this->session->userdata('amount'); ?></td>
-								</tr>
-							</table>
+							
 
 						</div>
 
 
 						<a class="btn btn-success btn-lg" href="<?php echo base_url(); ?>">Return to Home</a>
 						<br>
-						<h6>Need help with something? Visit our <a href="<?php echo base_url(); ?>SDCAHelpdesk">Helpdesk</a></h6>
 
 						
 						
