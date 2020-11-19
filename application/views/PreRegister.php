@@ -46,6 +46,7 @@ width: 100%;
 						?>
 						
 						</form>
+						<!--
 						<table class="table" style="width:100%; font-size:100%">
 								<tr>
 									<td style="text-align:right; font-weight:400">Reference Number:</td>
@@ -61,7 +62,8 @@ width: 100%;
 									<td style="text-align:right; font-weight:400">Amount:</td>
 									<td style="text-align:left">Php <?php echo $this->session->userdata('amount'); ?></td>
 								</tr>
-							</table>
+						</table>
+						-->
 					</div>
 				</div> <!-- wizard container -->
 			</div>
