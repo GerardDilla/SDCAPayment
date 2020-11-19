@@ -142,8 +142,12 @@ class Main extends MY_Controller {
 	}
 	public function save_transaction_details(){
 		
-		$paydata['access_key'] = '19523d6302043fbfb2eaef3f937611a9';
-		$paydata['profile_id'] = 'AC8571E2-3FDB-4488-8FF7-6707B6ABF93A';
+		//TEST Access key* $paydata['access_key'] = '19523d6302043fbfb2eaef3f937611a9';
+		$paydata['access_key'] = '593481616fea33019b25ee3d006e82a8';
+
+		//TEST Profile ID*  $paydata['profile_id'] = 'AC8571E2-3FDB-4488-8FF7-6707B6ABF93A';
+		$paydata['profile_id'] = '4A969797-53F5-4B72-819E-365E36F1109B';
+
 		$paydata['transaction_uuid'] = $this->transaction_uuid();
 		$paydata['signed_field_names'] = 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,auth_trans_ref_no,reference_number,amount,currency';
 		$paydata['unsigned_field_names'] = '';

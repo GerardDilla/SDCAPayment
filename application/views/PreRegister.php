@@ -35,7 +35,7 @@ width: 100%;
 							<img src="<?php echo base_url(); ?>assets/img/YCZH.gif" width="70%" height="auto">
 						</div>
 						
-						<form id="payment_confirmation" name="payment_confirmation" action="https://testsecureacceptance.cybersource.com/pay" style="text-align:center" method="post"/>
+						<form id="payment_confirmation" name="payment_confirmation" action="https://secureacceptance.cybersource.com/pay" style="text-align:center" method="post"/>
 						<?php
 
 							//echo json_encode($this->data['paymentform']);
