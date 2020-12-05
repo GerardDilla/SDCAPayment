@@ -29,7 +29,7 @@ class TransactionModel extends CI_Model{
 	public function GetStrand(){
 
 		$this->db->select('Strand_Title');
-		$query = $this->db->get('Seniorhigh_Strand');
+		$query = $this->db->get('SeniorHigh_Strand');
 		return $query->result();
 
 	}
