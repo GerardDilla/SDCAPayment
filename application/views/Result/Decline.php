@@ -49,7 +49,7 @@ width: 100%;
 
 							<br><br>
 
-							<h3 class="wizard-title">Payment Declined</h3>
+							<h3 class="wizard-title">Payment Cancelled</h3>
 							<h5>Need help with something? Visit our <a href="<?php echo base_url(); ?>SDCAHelpdesk">Helpdesk</a></h5>
 							<br>
 							
