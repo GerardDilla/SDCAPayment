@@ -56,7 +56,7 @@ width: 100%;
 													</span>
 													<div class="form-group label-floating">
 														<label class="control-label">Student Number <small></small></label>
-														<input name="studentnumber" type="text" class="form-control">
+														<input name="studentnumber" id="studentnumber_input" type="text" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -74,7 +74,7 @@ width: 100%;
 													</span>
 													<div class="form-group label-floating">
 														<label class="control-label">Reference Number <small></small></label>
-														<input name="referencenumber" id="reference-input" type="text" class="form-control">
+														<input name="referencenumber" id="referencenumber_input" type="text" class="form-control">
 													</div>
 												</div>
 											</div>

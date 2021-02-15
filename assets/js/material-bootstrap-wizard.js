@@ -429,8 +429,8 @@ function verifystudent(){
         url: baseurl+"index.php/Main/verify_student",
         type:'POST',
         data:{
-            studentnumber:$('input [name="studentnumber"]').val(),
-            referencenumber:$('input [name="referencenumber"]').val(),
+            studentnumber:$('#studentnumber_input').val(),
+            referencenumber:$('#referencenumber_input').val(),
         },
         success: function(response){
 

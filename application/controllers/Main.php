@@ -310,8 +310,9 @@ class Main extends MY_Controller {
 	public function verify_student(){
 
 		// $this->TransactionModel->get_studentdata($param);
-		$sn = $this->input->post('studentnumber');
-		echo $sn;
+		$inputs['sn'] = $this->input->post('studentnumber');
+		$inputs['rn'] = $this->input->post('referencenumber');
+		echo json_encode($inputs);
 
 	}
 
