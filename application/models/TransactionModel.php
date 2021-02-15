@@ -69,6 +69,10 @@ class TransactionModel extends CI_Model{
 
 	}
 
+	public function get_studentdata(){
+		
+	}
+
 
 
 	

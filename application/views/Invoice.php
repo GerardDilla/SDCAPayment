@@ -108,7 +108,7 @@ width: 100%;
 									<h4 class="info-text"> Select the Student's Academic Background </h4>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1" id="choiceparent">
-											<h4 style="text-align:center; color:#008000">testewrtewrwerew</h4>
+											<h4 style="text-align:center; color:#008000">..</h4>
 											<div class="col-sm-4">
 												<div class="choice" data-toggle="wizard-checkbox">
 													<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">

@@ -307,6 +307,13 @@ class Main extends MY_Controller {
 		$this->render('Result/Error');
 
 	}
+	public function verify_student(){
+
+		// $this->TransactionModel->get_studentdata($param);
+		$sn = $this->input->post('studentnumber');
+		echo $sn;
+
+	}
 
 
 }

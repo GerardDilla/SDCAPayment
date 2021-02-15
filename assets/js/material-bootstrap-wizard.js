@@ -115,7 +115,7 @@ $(document).ready(function(){
                 $(parent).find('h4').html(error[0]['textContent']);
             }*/
             //console.log($(element).parent('div').parent('div').parent('div').attr('id'));
-         },
+        },
         highlight: function (element, errorClass) {
             console.log(element);
             if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
@@ -142,7 +142,9 @@ $(document).ready(function(){
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
+            
         	var $valid = $('.wizard-card form').valid();
+            verifystudent();
         	if(!$valid) {
         		$validator.focusInvalid();
         		return false;
@@ -210,7 +212,8 @@ $(document).ready(function(){
             }
 
             refreshAnimation($wizard, index);
-        }
+        },
+
   	});
 
 
@@ -409,6 +412,29 @@ function ProgramAPI(){
                 row.append($("<option/>").text(result['Program_Code']).attr('value',result['Program_Code']));
 
             });
+
+        },
+        fail: function(){
+
+            alert('Error Connecting to Server, Try again.');
+
+        }
+    });
+
+}
+
+function verifystudent(){
+
+    $.ajax({
+        url: baseurl+"index.php/Main/verify_student",
+        type:'POST',
+        data:{
+            studentnumber:$('input [name="studentnumber"]').val(),
+            referencenumber:$('input [name="referencenumber"]').val(),
+        },
+        success: function(response){
+
+            data = JSON.parse(response);
 
         },
         fail: function(){

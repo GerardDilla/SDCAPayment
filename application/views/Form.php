@@ -46,14 +46,50 @@ width: 100%;
 								<div class="tab-pane" id="about">
 									<div class="row">
 										<h4 class="info-text"> Please answer the form below</h4>
+
 										<div class="col-sm-10 col-sm-offset-1">
+
+											<div class="col-sm-5">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">person</i>
+													</span>
+													<div class="form-group label-floating">
+														<label class="control-label">Student Number <small></small></label>
+														<input name="studentnumber" type="text" class="form-control">
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-2">
+												<div class="form-group label-floating" style="text-align:center">
+													<div class="form-control" style="background: none #FFF; color: #000;"><b>OR</b></div>
+												</div>
+											</div>
+
+											<div class="col-sm-5" >
+												<div class="input-group" style="float:right">
+													<span class="input-group-addon">
+														<i class="material-icons">person</i>
+													</span>
+													<div class="form-group label-floating">
+														<label class="control-label">Reference Number <small></small></label>
+														<input name="referencenumber" id="reference-input" type="text" class="form-control">
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+
+										<div class="col-sm-10 col-sm-offset-1 hide">
 											<div class="input-group">
 												<span class="input-group-addon">
 													<i class="material-icons">looks_one</i>
 												</span>
 												<div class="form-group label-floating">
-													<label class="control-label">Student First Name <small>(required)</small></label>
-													<input name="firstname" id="firstname-input" type="text" class="form-control">
+													<label class="control-label">Student First Name <small></small></label>
+													<input disabled name="firstname" id="firstname-input" type="text" class="form-control">
 												</div>
 											</div>
 
@@ -63,7 +99,7 @@ width: 100%;
 												</span>
 												<div class="form-group label-floating">
 													<label class="control-label">Student Middle Name <small></small></label>
-													<input name="middlename" type="text" class="form-control">
+													<input disabled name="middlename" type="text" class="form-control">
 												</div>
 											</div>
 
@@ -72,38 +108,12 @@ width: 100%;
 													<i class="material-icons">looks_3</i>
 												</span>
 												<div class="form-group label-floating">
-													<label class="control-label">Student Last Name <small>(required)</small></label>
-													<input name="lastname" id="lastname-input" type="text" class="form-control">
+													<label class="control-label">Student Last Name <small></small></label>
+													<input disabled name="lastname" id="lastname-input" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
-										<div class="col-sm-10 col-sm-offset-1">
 
-											<div class="col-sm-6">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">person</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Student Number <small>(required)</small></label>
-														<input name="studentnumber" type="text" class="form-control">
-													</div>
-												</div>
-											</div>
-
-											<div class="col-sm-6">
-												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="material-icons">person</i>
-													</span>
-													<div class="form-group label-floating">
-														<label class="control-label">Reference Number <small>(optional)</small></label>
-														<input name="referencenumber" id="reference-input" type="text" class="form-control">
-													</div>
-												</div>
-											</div>
-
-										</div>
 									</div>
 								</div>
 								<div class="tab-pane" id="account">
@@ -265,7 +275,9 @@ width: 100%;
 									<input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
 								</div>
 								<div class="clearfix"></div>
-								<h5 style="text-align:center">Need help with something? Visit our <a href="<?php echo base_url(); ?>SDCAHelpdesk">Helpdesk</a></h5>
+								<h5 style="text-align:center">Need help with something? Visit our <a href="https://stdominiccollege.edu.ph/SDCAHelpdesk">Helpdesk</a></h5>
+
+								<h6 style="text-align:center"><a href="https://stdominiccollege.edu.ph">Back to Home</a></h6>
 							</div>
 						</form>
 					</div>
