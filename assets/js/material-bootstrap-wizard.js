@@ -19,6 +19,41 @@ var searchVisible = 0;
 var transparent = true;
 var mobile_device = false;
 
+$.extend({
+
+    verifystudent: function(){
+        var status = null;
+        $.ajax({
+            url: baseurl+"index.php/Main/verify_student",
+            type:'POST',
+            async: false,
+            data:{
+                student_reference_number:$('#studentnumber_input').val(),
+                type:$('.active > input').val(),
+            },
+            success: function(response){
+
+                response = JSON.parse(response);
+
+                if(response){
+                    status = true;
+                }else{
+                    status = false;
+                }
+            },
+            fail: function(){
+                alert('Error Connecting to Server, Try again.');
+            }
+        });
+        return status;
+       
+    }
+
+
+});
+
+
+
 $(document).ready(function(){
 
     $.material.init();
@@ -26,7 +61,11 @@ $(document).ready(function(){
     /*  Activate the tooltips      */
     $('[rel="tooltip"]').tooltip();
 
-    $('#acad_info').hide();
+    $('.acad_info').hide();
+
+    $('.student_number_inputs').hide();
+
+    $('.student_basic_infos').hide();
 
     $('.acadchoice').click(function(){
 
@@ -64,14 +103,19 @@ $(document).ready(function(){
 		      minlength: 2
             },
             studentnumber: {
-                required: true,
-                minlength: 5,
+                
+                required:true,
                 number:true,
+                StudentVerify:true,
+               
+                
             },
-		    referencenumber: {
-              minlength: 5,
-              number:true,
-            },
+		    // referencenumber: {
+
+            //     number:true,
+            //     StudentVerify:true,
+                
+            // },
            'educationtype[]': {
                 required: true
             },
@@ -100,11 +144,9 @@ $(document).ready(function(){
             amount: {
                 required: true,
                 number:true,
-            }
+            },
         },
-        messages: {
-            'educationtype[]': "Please Select Education Type"
-        },
+        
         errorPlacement: function(error, element) {
             //$(element).parent('div').addClass('has-error');
             //console.log(error);
@@ -115,25 +157,50 @@ $(document).ready(function(){
                 $(parent).find('h4').html(error[0]['textContent']);
             }*/
             //console.log($(element).parent('div').parent('div').parent('div').attr('id'));
+
         },
         highlight: function (element, errorClass) {
-            console.log(element);
+            // console.log(element);
             if($(element).parent('div').parent('div').parent('div').attr('id') == 'choiceparent'){
 
                 parent = $('#choiceparent');
                 $(parent).find('h4').html('Choose the Academic Backround of the Student below');
             }
+
+            if($(element).attr('id') == 'studentnumber_input'){
+
+                $(element).parent('div').addClass('has-error');
+                errordiv = $('#studentcred_errors');
+                $(errordiv).html('Student Not Found');
+
+            }
+
+
             $(element).closest('.form-group').addClass('has-error');
         },
         unhighlight: function (element, errorClass) {
             $(element).closest('.form-group').removeClass('has-error');
+            
         },
         success: function(label){
-            console.log(label);
+            // console.log(label);
             $(label).parent('div').removeClass('has-error');
             $('#choiceparent').find('h4').html('');
-         }
+            $('#studentcred_errors').html('');
+        }
+
+        
 	});
+
+    $.validator.addMethod("StudentVerify", function(value, element) {
+
+        student_status = $.verifystudent();
+        console.log(student_status);
+        return this.optional(element) || student_status;
+
+    },"Student Not Found"); 
+
+   
 
     // Wizard Initialization
   	$('.wizard-card').bootstrapWizard({
@@ -144,11 +211,16 @@ $(document).ready(function(){
         onNext: function(tab, navigation, index) {
             
         	var $valid = $('.wizard-card form').valid();
-            verifystudent();
-        	if(!$valid) {
+
+            if(!$valid) {
+
         		$validator.focusInvalid();
         		return false;
+
         	}
+
+
+        	
         },
 
         onInit : function(tab, navigation, index){
@@ -163,7 +235,7 @@ $(document).ready(function(){
             refreshAnimation($wizard, index);
 
             $('.moving-tab').css('transition','transform 0s');
-       },
+        },
 
         onTabClick : function(tab, navigation, index){
             var $valid = $('.wizard-card form').valid();
@@ -246,8 +318,6 @@ $(document).ready(function(){
     $('.set-full-height').css('height', 'auto');
 
 });
-
-
 
  //Function to show image before upload
 
@@ -351,9 +421,9 @@ function debounce(func, wait, immediate) {
 
 function InitAcadForm(acad){
 
-    if($('#acad_info').is(":hidden")){
+    if($('.acad_info').is(":hidden")){
 
-        $('#acad_info').fadeIn();
+        $('.acad_info').fadeIn();
 
     }
 
@@ -389,6 +459,8 @@ function InitAcadForm(acad){
         Yearlevel(acad);
 
     }
+    $('#studentnumber_input').val('')
+    $('#referencenumber_input').val('')
 }
 
 function ProgramAPI(){
@@ -412,29 +484,6 @@ function ProgramAPI(){
                 row.append($("<option/>").text(result['Program_Code']).attr('value',result['Program_Code']));
 
             });
-
-        },
-        fail: function(){
-
-            alert('Error Connecting to Server, Try again.');
-
-        }
-    });
-
-}
-
-function verifystudent(){
-
-    $.ajax({
-        url: baseurl+"index.php/Main/verify_student",
-        type:'POST',
-        data:{
-            studentnumber:$('#studentnumber_input').val(),
-            referencenumber:$('#referencenumber_input').val(),
-        },
-        success: function(response){
-
-            data = JSON.parse(response);
 
         },
         fail: function(){
@@ -476,6 +525,7 @@ function StrandAPI(){
     });
 
 }
+
 function Yearlevel(acad){
 
     if(acad == 'hed'){
@@ -504,6 +554,7 @@ function Yearlevel(acad){
     });
 
 }
+
 function toggleInspect(config){
 
     if(config == 0){

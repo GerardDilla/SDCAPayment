@@ -69,8 +69,35 @@ class TransactionModel extends CI_Model{
 
 	}
 
-	public function get_studentdata(){
-		
+	public function get_studentdata($param){
+
+		$this->db->where('Student_Number',$param['sn_rn']);
+		$this->db->limit(1);
+		$query = $this->db->get('Student_Info');
+		if($query->num_rows() == 0){
+
+			$this->db->where('Reference_Number',$param['sn_rn']);
+			$this->db->limit(1);
+			$query = $this->db->get('Studenwt_Info');
+
+		}
+		return $query->result_array();
+
+	}
+	public function get_studentdata_basiced($param){
+
+		$this->db->where('Student_Number',$param['sn_rn']);
+		$this->db->limit(1);
+		$query = $this->db->get('Student_Info');
+		if($query->num_rows() == 0){
+
+			$this->db->where('Reference_Number',$param['sn_rn']);
+			$this->db->limit(1);
+			$query = $this->db->get('Basiced_Studentinfo');
+
+		}
+		return $query->result_array();
+
 	}
 
 

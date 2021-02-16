@@ -47,21 +47,60 @@ width: 100%;
 									<div class="row">
 										<h4 class="info-text"> Please answer the form below</h4>
 
-										<div class="col-sm-10 col-sm-offset-1">
+										<div class="col-sm-10 col-sm-offset-1" id="choiceparent">
+											<b><h4 style="text-align:center; color:#008000; font-weight: bold;"></h4></b>
+											
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="bed">
+														<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Basic Education">
+														<div class="icon">
+															<i class="fa fa-pencil"></i>
+														</div>
+														<h6>Basic Education</h6>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="shs">
+														<input type="checkbox" class="uniqueCheckbox" name="educationtype[]" value="Senior Highschool">
+														<div class="icon " >
+															<i class="fa fa-users"></i>
+														</div>
+														<h6>Senior Highscool</h6>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="choice acadchoice" data-toggle="wizard-checkbox" data-acad="hed">
+														<input type="checkbox" class="uniqueCheckbox"  name="educationtype[]" value="Higher Education">
+														<div class="icon " >
+															<i class="fa fa-laptop"></i>
+														</div>
+														<h6>Higher Education</h6>
+													</div>
+												</div>
+											
+										</div>
 
-											<div class="col-sm-5">
+										<div class="col-sm-10 col-sm-offset-1 acad_info student-cred" data-validated="0">
+											
+											<div class="col-sm-12" style="padding;5px; text-align:center">
+												<hr>
+												<h4>Input Student's Student Number or Reference Number</h4>
+												<b><h2 id="studentcred_errors"></h2></b>
+											</div>
+
+											<div class="col-sm-12">
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">person</i>
 													</span>
 													<div class="form-group label-floating">
-														<label class="control-label">Student Number <small></small></label>
+														<label class="control-label">Student Number / Reference Number <small></small></label>
 														<input name="studentnumber" id="studentnumber_input" type="text" class="form-control">
 													</div>
 												</div>
 											</div>
 
-											<div class="col-sm-2">
+											<!-- <div class="col-sm-2">
 												<div class="form-group label-floating" style="text-align:center">
 													<div class="form-control" style="background: none #FFF; color: #000;"><b>OR</b></div>
 												</div>
@@ -77,12 +116,12 @@ width: 100%;
 														<input name="referencenumber" id="referencenumber_input" type="text" class="form-control">
 													</div>
 												</div>
-											</div>
+											</div> -->
 
 										</div>
 
 
-										<div class="col-sm-10 col-sm-offset-1 hide">
+										<!-- <div class="col-sm-10 col-sm-offset-1 student_basic_infos">
 											<div class="input-group">
 												<span class="input-group-addon">
 													<i class="material-icons">looks_one</i>
@@ -112,12 +151,12 @@ width: 100%;
 													<input disabled name="lastname" id="lastname-input" type="text" class="form-control">
 												</div>
 											</div>
-										</div>
+										</div> -->
 
 									</div>
 								</div>
 								<div class="tab-pane" id="account">
-									<h4 class="info-text"> Select the Student's Academic Background </h4>
+									<!-- <h4 class="info-text"> Select the Student's Academic Background </h4>
 									<div class="row">
 										<div class="col-sm-10 col-sm-offset-1" id="choiceparent">
 											<b><h4 style="text-align:center; color:#008000; font-weight: bold;"></h4></b>
@@ -152,10 +191,44 @@ width: 100%;
 											
 										</div>
 									</div>
-									<hr>
+									<hr> -->
+									
 									
 									<div class="row">
-										<div class="col-sm-10 col-sm-offset-1" id="acad_info">
+
+										<div class="col-sm-10 col-sm-offset-1 student_basic_infos">
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="material-icons">looks_one</i>
+												</span>
+												<div class="form-group label-floating">
+													<label class="control-label">Student First Name <small></small></label>
+													<input disabled name="firstname" id="firstname-input" type="text" class="form-control">
+												</div>
+											</div>
+
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="material-icons">looks_two</i>
+												</span>
+												<div class="form-group label-floating">
+													<label class="control-label">Student Middle Name <small></small></label>
+													<input disabled name="middlename" type="text" class="form-control">
+												</div>
+											</div>
+
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="material-icons">looks_3</i>
+												</span>
+												<div class="form-group label-floating">
+													<label class="control-label">Student Last Name <small></small></label>
+													<input disabled name="lastname" id="lastname-input" type="text" class="form-control">
+												</div>
+											</div>
+										</div>
+
+										<div class="col-sm-10 col-sm-offset-1 acad_info" id="">
 											<h4 class="info-text"> Input the Student's Academic Info </h4>
 
 											<div class="col-sm-12">

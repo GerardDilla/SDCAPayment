@@ -310,9 +310,18 @@ class Main extends MY_Controller {
 	public function verify_student(){
 
 		// $this->TransactionModel->get_studentdata($param);
-		$inputs['sn'] = $this->input->post('studentnumber');
-		$inputs['rn'] = $this->input->post('referencenumber');
-		echo json_encode($inputs);
+		$inputs['sn_rn'] = $this->input->post('student_reference_number');
+		$inputs['type'] = $this->input->post('type');
+		if($inputs['type'] == 'Higher Education'){
+
+			$result = $this->TransactionModel->get_studentdata($inputs);
+
+		}else{
+			
+			$result = $this->TransactionModel->get_studentdata_basiced($inputs);
+
+		}
+		echo json_encode($result);
 
 	}
 
