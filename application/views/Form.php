@@ -84,7 +84,7 @@ width: 100%;
 											
 											<div class="col-sm-12" style="padding;5px; text-align:center">
 												<hr>
-												<h4>Input Student's Student Number or Reference Number</h4>
+												<h4>Student's Student Number or Reference Number</h4>
 												<b><h2 id="studentcred_errors"></h2></b>
 											</div>
 
@@ -117,6 +117,22 @@ width: 100%;
 													</div>
 												</div>
 											</div> -->
+
+										</div>
+
+										<div class="col-sm-8 col-sm-offset-2 student_basic_infos">
+
+											<h5 style="text-align:center;">
+												PAY FOR:
+											</h5>
+											<h3 style="text-align:center; border-bottom: solid #d2d2d2; border-width: thin;"> 
+												<span id="firstname-label"></span> 
+												<span id="middlename-label"></span> 
+												<span id="lastname-label"></span> 
+											</h3>
+											<input name="firstname" id="firstname-input" type="hidden">
+											<input name="middlename" id="middlename-input" type="hidden">
+											<input name="lastname" id="lastname-input" type="hidden">
 
 										</div>
 
@@ -195,7 +211,7 @@ width: 100%;
 									
 									
 									<div class="row">
-
+<!-- 
 										<div class="col-sm-10 col-sm-offset-1 student_basic_infos">
 											<div class="input-group">
 												<span class="input-group-addon">
@@ -226,7 +242,7 @@ width: 100%;
 													<input disabled name="lastname" id="lastname-input" type="text" class="form-control">
 												</div>
 											</div>
-										</div>
+										</div> -->
 
 										<div class="col-sm-10 col-sm-offset-1 acad_info" id="">
 											<h4 class="info-text"> Input the Student's Academic Info </h4>
@@ -255,6 +271,7 @@ width: 100%;
 														<select name="yearlevel" id="yearlevel_drop" class="form-control">
 
 														</select>
+
 													</div>
 												</div>
 											</div>
@@ -266,11 +283,12 @@ width: 100%;
 													</span>
 													<div class="form-group">
 														<label class="control-label">School Year <small>(required)</small></label>
-														<select name="schoolyear" class="form-control">
+														<select name="schoolyear" id="schoolyear_choices" class="form-control">
 															<option disabled="" selected="">Select School Year</option>
 															<option>2019-2020</option>
 															<option>2020-2021</option>
 														</select>
+
 													</div>
 												</div>
 											</div>
@@ -345,7 +363,7 @@ width: 100%;
 								</div>
 
 								<div class="pull-left">
-									<input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+									<input type='button' style="background-color: #4caf50;" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
 								</div>
 								<div class="clearfix"></div>
 								<h5 style="text-align:center">Need help with something? Visit our <a href="https://stdominiccollege.edu.ph/SDCAHelpdesk">Helpdesk</a></h5>

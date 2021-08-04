@@ -1,13 +1,14 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Main extends MY_Controller {
+class Main extends MY_Controller
+{
 
-	function __construct() 
+	function __construct()
 	{
-		header('Access-Control-Allow-Origin: *');
-		header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, OPTIONS');
-		header('Access-Control-Request-Headers: Content-Type');
+		// header('Access-Control-Allow-Origin: *');
+		// header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, OPTIONS');
+		// header('Access-Control-Request-Headers: Content-Type');
 		parent::__construct();
 		date_default_timezone_set('Asia/Manila');
 		//echo date("Y-m-d H:i:s");
@@ -15,19 +16,15 @@ class Main extends MY_Controller {
 		$this->logdate = date("Y/m/d");
 		$this->load->library('Ub');
 		$this->load->model('TransactionModel');
-		
-
 	}
 	public function index()
 	{
-
-		
+		// echo $this->session->userdata('security_key');
+		$this->session->set_userdata('security_key', uniqid());
 		$this->render('Form');
-
-
 	}
-	private function payreg(){
-		
+	private function payreg()
+	{
 		$returndata = array(
 			'Error' => 0,
 			'Message' => '',
@@ -39,25 +36,25 @@ class Main extends MY_Controller {
 		$amount = $this->input->get('amount');
 		$referencenumber = $this->input->get('referencenumber');
 
-		if($referencenumber == ''){
+		if ($referencenumber == '') {
 			$returndata['Error'] = 1;
 			$returndata['Message'] = 'Please input Reference Number';
 			echo json_encode($returndata);
 			return;
 		}
-		if($firstname == ''){
+		if ($firstname == '') {
 			$returndata['Error'] = 1;
 			$returndata['Message'] = 'Please input First Name';
 			echo json_encode($returndata);
 			return;
 		}
-		if($lastname == ''){
+		if ($lastname == '') {
 			$returndata['Error'] = 1;
 			$returndata['Message'] = 'Please input Last Name';
 			echo json_encode($returndata);
 			return;
 		}
-		if($amount == ''){
+		if ($amount == '') {
 			$returndata['Error'] = 1;
 			$returndata['Message'] = 'Please input Amount to pay';
 			echo json_encode($returndata);
@@ -72,13 +69,13 @@ class Main extends MY_Controller {
 				"value": "53f2895a-e4de-4e82-a813-0d87a10e55e6"
 			  },
 			  "account-holder": {
-				"first-name": "'.$firstname.'",
-				"last-name": "'.$lastname.'"
+				"first-name": "' . $firstname . '",
+				"last-name": "' . $lastname . '"
 			  },
 			  "request-id": "",
 			  "requested-amount": {
-				"value": '.$amount.',
-				"currency": "'.$currency.'"
+				"value": ' . $amount . ',
+				"currency": "' . $currency . '"
 			  },
 			  "transaction-type": "purchase",
 			  "three-d": {
@@ -95,19 +92,19 @@ class Main extends MY_Controller {
 			  "payment-methods": {
 				"payment-method": [
 				  {
-					"name": "'.$paymentMethod.'"
+					"name": "' . $paymentMethod . '"
 				  }
 				]
 			  },
-			  "success-redirect-url": "SDCAPayment/index.php/Main/success/'.$referencenumber.'",
-			  "fail-redirect-url": "SDCAPayment/index.php/Main/fail/'.$referencenumber.'",
+			  "success-redirect-url": "SDCAPayment/index.php/Main/success/' . $referencenumber . '",
+			  "fail-redirect-url": "SDCAPayment/index.php/Main/fail/' . $referencenumber . '",
 			  "cancel-redirect-url": "SDCAPayment/index.php/Main/cancel"
 			},
 			"options": {
 			  "frame-ancestor": ""
 			}
 		  }';
-		$payload = $this->wirecard->modifyPayload($paymentdetails);//createPayload($paymentMethod);
+		$payload = $this->wirecard->modifyPayload($paymentdetails); //createPayload($paymentMethod);
 		$payload['options']['frame-ancestor'] = getBaseUrl();
 		$this->wirecard->retrievePaymentRedirectUrl($payload, $paymentMethod);
 
@@ -115,34 +112,38 @@ class Main extends MY_Controller {
 		echo json_encode($returndata);
 
 		//redirect(base_url().'src/register/embedded?method=creditcard');
-		
+
 	}
-	public function payreg_ub(){
+	public function payreg_ub()
+	{
 
-		
-		if(empty($this->input->post())){
+		// die();
+		if (!$this->session->userdata('security_key')) {
+			redirect(base_url() . 'index.php/Main');
+		}
 
-			redirect(base_url().'index.php/Main');
-			
+		if (empty($this->input->post())) {
+
+			redirect(base_url() . 'index.php/Main');
 		}
 
 		$transaction_detail_id = $this->save_transaction_details();
-		if($transaction_detail_id == ''){
+		if ($transaction_detail_id == '') {
 			echo 'An Error Occurred';
 			return;
 		}
 
 		$status = $this->save_transaction($transaction_detail_id);
-		if($status == ''){
+		if ($status == '') {
 			echo 'An Error Occurred';
 			return;
 		}
 
 		$this->render('PreRegister');
-		
 	}
-	public function save_transaction_details(){
-		
+	public function save_transaction_details()
+	{
+
 		//TEST Access key* $paydata['access_key'] = '19523d6302043fbfb2eaef3f937611a9';
 		$paydata['access_key'] = '593481616fea33019b25ee3d006e82a8';
 
@@ -173,19 +174,19 @@ class Main extends MY_Controller {
 		unset($paydata['merchant_defined_data24']);
 		$paydata['signature'] = $signature;
 		$save_status = $this->TransactionModel->SaveTransactionDetails($paydata);
-		
+
 		$paydata['merchant_defined_data23'] = $this->input->post('studentnumber');
 		$paydata['merchant_defined_data24'] = $this->input->post('yearlevel');
 		$this->data['paymentform'] = $paydata;
 
-		$this->session->set_userdata('refnum',$paydata['reference_number']);
-		$this->session->set_userdata('amount',$paydata['amount']);
+		//$this->session->set_userdata('transaction_uuid',$paydata['reference_number']);
+		$this->session->set_userdata('refnum', $paydata['reference_number']);
+		$this->session->set_userdata('amount', $paydata['amount']);
 
 		return $save_status;
-		
-
 	}
-	public function save_transaction($transaction_detail_id){
+	public function save_transaction($transaction_detail_id)
+	{
 
 		$transdata['transaction_detail_id'] = $transaction_detail_id;
 		$transdata['First_Name'] = $this->input->post('firstname');
@@ -202,21 +203,20 @@ class Main extends MY_Controller {
 		$transdata['Email'] = $this->input->post('email');
 		$transdata['Amount'] = $this->input->post('amount');
 
-		$this->session->set_userdata('email',$transdata['Email']);
-		
+		$this->session->set_userdata('email', $transdata['Email']);
+
 
 		return $this->TransactionModel->SaveTransaction($transdata);
-
 	}
-	public function notif(){
+	public function notif()
+	{
 
 		echo file_get_contents('php://input');
-
 	}
-	public function fail($Reference_Number = ''){
+	public function fail($Reference_Number = '')
+	{
 
 		echo $Reference_Number;
-		
 	}
 	private function showResponseData($attr, $hasToBeEncoded = false)
 	{
@@ -225,105 +225,116 @@ class Main extends MY_Controller {
 		}
 		return isset($_SESSION['response'][$attr]) ? $_SESSION['response'][$attr] : DEFAULT_RES_MSG;
 	}
-	public function getPrograms(){
+	public function getPrograms()
+	{
 
-	
+
 		$result = $this->TransactionModel->GetProgram();
 		echo json_encode($result);
-			
-
 	}
-	public function getStrand(){
-	
+	public function getStrand()
+	{
+
 		$result = $this->TransactionModel->GetStrand();
 		echo json_encode($result);
-
 	}
-	public function uniqueReferenceNumber(){
+	public function getSchoolyear()
+	{
 
-		$draft = date_format(date_create($this->logdate),"Ymd").strtoupper(uniqid('SDCA', false));
+		$year_now = intval(date("Y"));
+		$options = array(
+
+			($year_now - 2) . "-" . ($year_now - 1) => ($year_now - 2) . "-" . ($year_now - 1),
+			($year_now - 1) . "-" . $year_now => ($year_now - 1) . "-" . $year_now,
+			$year_now . "-" . ($year_now + 1) => $year_now . "-" . ($year_now + 1),
+			($year_now + 1) . "-" . ($year_now + 2) => ($year_now + 1) . "-" . ($year_now + 2),
+			($year_now + 2) . "-" . ($year_now + 3) => ($year_now + 2) . "-" . ($year_now + 3)
+
+		);
+		echo json_encode($options);
+	}
+	public function uniqueReferenceNumber()
+	{
+
+		$draft = date_format(date_create($this->logdate), "Ymd") . strtoupper(uniqid('SDCA', false));
 		$available = 0;
-		while($available != 1){
+		while ($available != 1) {
 
 			$result = $this->TransactionModel->uniqueReferenceNumber_check($draft);
-			if($result == 0){
+			if ($result == 0) {
 				$available = 1;
-			}else{
-				$draft = date_format(date_create($this->logdate),"Ymd").strtoupper(uniqid('SDCA', false));
+			} else {
+				$draft = date_format(date_create($this->logdate), "Ymd") . strtoupper(uniqid('SDCA', false));
 			}
-
 		}
 		return $draft;
-
 	}
-	public function transaction_uuid(){
+	public function transaction_uuid()
+	{
 
 		$draft = uniqid();
 		$available = 0;
-		while($available != 1){
+		while ($available != 1) {
 
 			$result = $this->TransactionModel->transaction_uuid_check($draft);
-			if($result == 0){
+			if ($result == 0) {
 				$available = 1;
-			}else{
+			} else {
 				$draft = uniqid();
 			}
-
 		}
 		return $draft;
-
 	}
-	public function auth_trans_ref_no(){
+	public function auth_trans_ref_no()
+	{
 
 		return uniqid();
 		$available = 0;
-		while($available != 1){
+		while ($available != 1) {
 
 			$result = $this->TransactionModel->auth_trans_ref_no_check($draft);
-			if($result == 0){
+			if ($result == 0) {
 				$available = 1;
-			}else{
+			} else {
 				$draft = uniqid();
 			}
-
 		}
 		return $draft;
 	}
-	public function Success(){
+	public function Success()
+	{
 
-		if(!$this->session->userdata('refnum')){
-			redirect(base_url().'index.php/Main');
+		if (!$this->session->userdata('refnum')) {
+			redirect(base_url() . 'index.php/Main');
 		}
 		$this->render('Result/Accept');
-
 	}
-	public function Cancel(){
+	public function Cancel()
+	{
 
 		$this->render('Result/Decline');
-
 	}
-	public function Error(){
+	public function Error()
+	{
 
 		$this->render('Result/Error');
-
 	}
-	public function verify_student(){
+	public function verify_student()
+	{
 
 		// $this->TransactionModel->get_studentdata($param);
 		$inputs['sn_rn'] = $this->input->post('student_reference_number');
 		$inputs['type'] = $this->input->post('type');
-		if($inputs['type'] == 'Higher Education'){
+		if ($inputs['type'] == 'Higher Education') {
 
-			$result = $this->TransactionModel->get_studentdata($inputs);
+			$result = $this->TransactionModel->get_studentdata_by_sn($inputs);
+			if (empty($result)) {
+				$result = $this->TransactionModel->get_studentdata_by_rn($inputs);
+			}
+		} else {
 
-		}else{
-			
 			$result = $this->TransactionModel->get_studentdata_basiced($inputs);
-
 		}
 		echo json_encode($result);
-
 	}
-
-
 }

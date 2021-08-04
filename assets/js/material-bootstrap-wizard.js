@@ -33,13 +33,8 @@ $.extend({
             },
             success: function(response){
 
-                response = JSON.parse(response);
+                status = JSON.parse(response);
 
-                if(response){
-                    status = true;
-                }else{
-                    status = false;
-                }
             },
             fail: function(){
                 alert('Error Connecting to Server, Try again.');
@@ -74,6 +69,9 @@ $(document).ready(function(){
 
     });
 
+    // Gets Schoolyear Choices
+    SchoolYear();
+
     if($('#inspect_option').data('inspect') == 'no'){
 
         toggleInspect(0);
@@ -105,7 +103,6 @@ $(document).ready(function(){
             studentnumber: {
                 
                 required:true,
-                number:true,
                 StudentVerify:true,
                
                 
@@ -126,9 +123,6 @@ $(document).ready(function(){
                 required: true
             },
             semester: {
-                required: true
-            },
-            schoolyear: {
                 required: true
             },
             schoolyear: {
@@ -195,8 +189,19 @@ $(document).ready(function(){
     $.validator.addMethod("StudentVerify", function(value, element) {
 
         student_status = $.verifystudent();
-        console.log(student_status);
-        return this.optional(element) || student_status;
+        if(student_status.length != 0){
+
+            FillBasicInfo(student_status);
+            $('.student_basic_infos').fadeIn();
+            return this.optional(element) || true;
+
+        }else{
+            
+            $('.student_basic_infos').fadeOut();
+            return this.optional(element) || false;
+        }
+        // console.log('Student Verification: '+student_status.length+' Status:'+status);
+        
 
     },"Student Not Found"); 
 
@@ -332,6 +337,40 @@ function readURL(input) {
     }
 }
 
+function FillBasicInfo(data = {}){
+
+    // Hidden Inputs
+    firstname = $('#firstname-input');
+    middlename = $('#middlename-input');
+    lastname = $('#lastname-input');
+
+    // Labels
+    firstname_label = $('#firstname-label');
+    middlename_label = $('#middlename-label');
+    lastname_label = $('#lastname-label');
+
+    // Data Passing for Labels
+    firstname_label.html(data[0]['First_Name']);
+    middlename_label.html(data[0]['Middle_Name']);
+    lastname_label.html(data[0]['Last_Name']);
+
+    // Data Passing for label
+    firstname.val(data[0]['First_Name']);
+    middlename.val(data[0]['Middle_Name']);
+    lastname.val(data[0]['Last_Name']);
+
+    // For programs
+    if($.inArray('Course',data[0])){
+
+        program_choice = $('#program_drop');
+        program_choice.val(data[0]['Course']);
+        
+    }
+
+
+    
+}
+
 $(window).resize(function(){
     $('.wizard-card').each(function(){
         $wizard = $(this);
@@ -460,6 +499,7 @@ function InitAcadForm(acad){
 
     }
     $('#studentnumber_input').val('')
+    $('.student_basic_infos').fadeOut();
     $('#referencenumber_input').val('')
 }
 
@@ -555,6 +595,37 @@ function Yearlevel(acad){
 
 }
 
+function SchoolYear(){
+
+    $.ajax({
+        url: baseurl+"index.php/Main/getSchoolyear",
+        success: function(response){
+
+            data = JSON.parse(response);
+
+            row = $('#schoolyear_choices');
+            row.html('');
+            row.parent().removeClass('is-empty');
+            row.append($("<option/>").text('Select School Year').attr({disabled:"disabled",selected:"selected"}));
+
+
+            $.each(data, function(index, result) 
+            {
+                //Set custom attribute 'sched-code'
+                row.append($("<option/>").text(result).attr('value',result));
+
+            });
+
+        },
+        fail: function(){
+
+            alert('Error Connecting to Server, Try again.');
+
+        }
+    });
+
+}
+
 function toggleInspect(config){
 
     if(config == 0){
@@ -587,4 +658,6 @@ function toggleInspect(config){
 
 
 }
+
+
 
