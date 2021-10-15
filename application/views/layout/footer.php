@@ -18,7 +18,7 @@
 	<script src="<?php echo base_url(); ?>assets/js/customscript.js"></script>
 
 	<!-- Wirecard -->
-	<script type=text/javascript src="https://wpp-test.wirecard.com/loader/paymentPage.js"></script>
+	<!-- <script type=text/javascript src="https://wpp-test.wirecard.com/loader/paymentPage.js"></script> -->
 
 	
 	
